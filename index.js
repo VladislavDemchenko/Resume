@@ -5,30 +5,29 @@ canvas.width = 1024
 canvas.height = 576
 
 const collisionsMap = []
-for (let i = 0; i < collisions.length; i += 70) {
-  collisionsMap.push(collisions.slice(i, 70 + i))
+for (let i = 0; i < collisions.length; i += 95) {
+  collisionsMap.push(collisions.slice(i, 95 + i))
 }
 
 const battleZonesMap = []
-for (let i = 0; i < battleZonesData.length; i += 70) {
-  battleZonesMap.push(battleZonesData.slice(i, 70 + i))
+for (let i = 0; i < battleZonesData.length; i += 95) {
+  battleZonesMap.push(battleZonesData.slice(i, 95 + i))
 }
 
 const charactersMap = []
-for (let i = 0; i < charactersMapData.length; i += 70) {
-  charactersMap.push(charactersMapData.slice(i, 70 + i))
+for (let i = 0; i < charactersMapData.length; i += 95) {
+  charactersMap.push(charactersMapData.slice(i, 95 + i))
 }
-console.log(charactersMap)
 
 const boundaries = []
 const offset = {
-  x: -735,
-  y: -650
+  x: -900,
+  y: -1790
 }
 
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 1025)
+    if (symbol === 2049)
       boundaries.push(
         new Boundary({
           position: {
@@ -44,7 +43,7 @@ const battleZones = []
 
 battleZonesMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 1025)
+    if (symbol === 2049)
       battleZones.push(
         new Boundary({
           position: {
@@ -235,26 +234,23 @@ function animate() {
           rectangle2: battleZone
         }) &&
         overlappingArea > (player.width * player.height) / 2 &&
-        Math.random() < 0.01
+        Math.random() < 0.1
       ) {
         // deactivate current animation loop
         window.cancelAnimationFrame(animationId)
 
-        audio.Map.stop()
-        audio.initBattle.play()
-        audio.battle.play()
-
+        // audio.Map.stop()
+        // audio.initBattle.play()
+        // audio.battle.play()
         battle.initiated = true
         gsap.to('#overlappingDiv', {
           opacity: 1,
-          repeat: 3,
           yoyo: true,
-          duration: 0.4,
           onComplete() {
-            gsap.to('#overlappingDiv', {
-              opacity: 1,
-              duration: 0.4,
-              onComplete() {
+            // gsap.to('#overlappingDiv', {
+            //   opacity: 1,
+            //   duration: 0.4,
+            //   onComplete() {
                 // activate a new animation loop
                 initBattle()
                 animateBattle()
@@ -262,8 +258,8 @@ function animate() {
                   opacity: 0,
                   duration: 0.4
                 })
-              }
-            })
+              // }
+            // })
           }
         })
         break
