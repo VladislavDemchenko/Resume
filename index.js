@@ -201,13 +201,16 @@ const renderables = [
 const battle = {
   initiated: false
 }
-
+// var button = document.getElementById('button')
+// var startScreen = document.getElementById('startScreen')
+// button.addEventListener('click', function () {
+//   startScreen.style.display = 'none'
+// })
 function animate() {
   const animationId = window.requestAnimationFrame(animate)
   renderables.forEach((renderable) => {
     renderable.draw()
   })
-
   let moving = true
   player.animate = false
 
@@ -247,19 +250,18 @@ function animate() {
           opacity: 1,
           yoyo: true,
           onComplete() {
-            // gsap.to('#overlappingDiv', {
-            //   opacity: 1,
-            //   duration: 0.4,
-            //   onComplete() {
+            gsap.to('#overlappingDiv', {
+              opacity: 1,
+              // duration: 0.4,
+              onComplete() {
                 // activate a new animation loop
                 initBattle()
-                animateBattle()
+                // animateBattle()
                 gsap.to('#overlappingDiv', {
                   opacity: 0,
-                  duration: 0.4
                 })
-              // }
-            // })
+              }
+            })
           }
         })
         break
@@ -401,7 +403,7 @@ function animate() {
       })
   }
 }
-// animate()
+animate()
 
 let lastKey = ''
 window.addEventListener('keydown', (e) => {
