@@ -1,67 +1,90 @@
-// const battleBackgroundImage = new Image()
-// battleBackgroundImage.src = './img/Paper_Craft.png'
-// const battleBackground = new Sprite({
-//   position: {
-//     x: 0,
-//     y: 0
-//   },
-//   image: battleBackgroundImage
-// })
 
-let draggle
-let emby
-let renderedSprites
-// let battleAnimationId
-let queue
-
-
-
-function initBattle() {
+animate()
+animate()
+function initPageContent() {
   const modalContainer = document.createElement('div')
   modalContainer.style.cssText = `
-    position: fixed;
-    top: 220;
-    left: 550;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
-    height: 700px;
+    width: 744px;
+    height: 528px;
     background-image: url('./img/Paper_Craft.png');
     background-size: cover;
-    border-radius: 10px;
-    padding: 20px;
     z-index: 1000;
   `
 
   const closeButton = document.createElement('button')
+  closeButton.className = 'closeButton'
   closeButton.innerHTML = 'X'
-  closeButton.style.cssText = `
-    position: fixed;
-    top: 200px;
-    right: 88px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px 10px;
-  `
 
-  const content = document.createElement('div')
-  content.innerHTML = 'Ваш текст тут'
-  content.style.cssText = `
-    color: black;
-    text-align: center;
-    margin-top: 40px;
+  const contentPage1 = document.createElement('div')
+  contentPage1.className = 'page1'
+  contentPage1.innerHTML = `
+        <div class="page_title">PROJECTS</div>
+        <div class="container">
+           <div class="main-title">Book catalog</div>
+           <div class="date-info">July - October 2024</div>
+           <div class="description">
+                Web application, with ability to 
+                view the book, add
+                new, edit, add notes
+           </div>
+        </div>
+        <div class="container">
+           <div class="main-title">User authorization system</div>
+           <div class="date-info">November - December 2024</div>
+           <div class="description">
+                User authorization, authentication service with Redis caching and MongoDB integration
+           </div>
+       </div>
+        <div class="container">
+           <div class="main-title">Collaboro</div>
+           <div class="date-info">January - February 2025</div>
+           <div class="description">
+                User authorization, authentication 
+                microservice architecture with reactive programming (WebFlux), 
+                JWT session management, Spring Security
+           </div>
+       </div>
+  `
+  const contentPage2 = document.createElement('div')
+  contentPage2.className = 'page2'
+  contentPage2.innerHTML = `
+        <div class="page_title">SKILLS</div>
+        <div class="container">
+            <div class="skills">
+                 Java, Spring(Boot, Web, MVC, REST), Hibernate, PostgreSQL, 
+                    JUint, Mockito, Reflection API, Stream API, Generics API
+            </div>
+            <a href="https://github.com/VladislavDemchenko/BookCatalogWithSpringData" target="_blank" class="repositoryLink">GitHub Repository</a>
+       </div>
+        <div class="container">
+            <div class="skills">
+                 Java, Spring (Boot, Web, MVC), Redis, MongoDB, 
+                    Stream API, Generics API
+            </div>
+            <a href="https://github.com/VladislavDemchenko/UserAuthSystem" target="_blank" class="repositoryLink">GitHub Repository</a>
+
+       </div>
+        <div class="container">
+            <div class="skills">
+                 Java, Spring(Boot, Web, MVC, REST), Hibernate, PostgreSQL, JUnit, Mockito, Reflection API, Stream API, Generic API, OOP, Lombok, GitHub, Maven
+            </div>
+            <a href="https://github.com/VladislavDemchenko/Collaboro" target="_blank" class="repositoryLink">GitHub Repository</a>
+       </div>
   `
 
   modalContainer.appendChild(closeButton)
-  modalContainer.appendChild(content)
+  modalContainer.appendChild(contentPage1)
+  modalContainer.appendChild(contentPage2)
   document.body.appendChild(modalContainer)
-
   closeButton.onclick = () => {
     modalContainer.remove()
     battle.initiated = false
   }
-  // animate()
+  animate()
   // document.querySelector('#userInterface').style.display = 'block'
   // document.querySelector('#dialogueBox').style.display = 'none'
   // document.querySelector('#enemyHealthBar').style.width = '80%'
@@ -170,7 +193,7 @@ function animateBattle() {
   // })
 }
 
-animate()
+// animate()
 // initBattle()
 // animateBattle()
 

@@ -179,6 +179,9 @@ const keys = {
   },
   d: {
     pressed: false
+  },
+  e: {
+    pressed: false
   }
 }
 
@@ -217,27 +220,15 @@ function animate() {
   if (battle.initiated) return
 
   // activate a battle
-  if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+  if (keys.e.pressed) {
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
-      const overlappingArea =
-        (Math.min(
-          player.position.x + player.width,
-          battleZone.position.x + battleZone.width
-        ) -
-          Math.max(player.position.x, battleZone.position.x)) *
-        (Math.min(
-          player.position.y + player.height,
-          battleZone.position.y + battleZone.height
-        ) -
-          Math.max(player.position.y, battleZone.position.y))
+
       if (
         rectangularCollision({
           rectangle1: player,
           rectangle2: battleZone
-        }) &&
-        overlappingArea > (player.width * player.height) / 2 &&
-        Math.random() < 0.1
+        })
       ) {
         // deactivate current animation loop
         window.cancelAnimationFrame(animationId)
@@ -255,7 +246,7 @@ function animate() {
               // duration: 0.4,
               onComplete() {
                 // activate a new animation loop
-                initBattle()
+                initPageContent()
                 // animateBattle()
                 gsap.to('#overlappingDiv', {
                   opacity: 0,
@@ -269,7 +260,8 @@ function animate() {
     }
   }
 
-  if (keys.w.pressed && lastKey === 'w') {
+  //Aimation for player movement and collision detection
+  if ((keys.w.pressed && lastKey === 'w') || (keys.w.pressed && lastKey === 'ц')) {
     player.animate = true
     player.image = player.sprites.up
 
@@ -302,7 +294,7 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y += 3
       })
-  } else if (keys.a.pressed && lastKey === 'a') {
+  } else if ((keys.a.pressed && lastKey === 'a') || (keys.a.pressed && lastKey === 'ф')) {
     player.animate = true
     player.image = player.sprites.left
 
@@ -335,7 +327,7 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.x += 3
       })
-  } else if (keys.s.pressed && lastKey === 's') {
+  } else if ((keys.s.pressed && lastKey === 's') || (keys.s.pressed && lastKey === 'і')) {
     player.animate = true
     player.image = player.sprites.down
 
@@ -368,7 +360,7 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y -= 3
       })
-  } else if (keys.d.pressed && lastKey === 'd') {
+  } else if ((keys.d.pressed && lastKey === 'd') || (keys.d.pressed && lastKey === 'в')) {
     player.animate = true
     player.image = player.sprites.right
 
@@ -440,22 +432,32 @@ window.addEventListener('keydown', (e) => {
       player.isInteracting = true
       break
     case 'w':
+    case 'ArrowUp':
       keys.w.pressed = true
       lastKey = 'w'
       break
     case 'a':
+    case 'ArrowLeft':
       keys.a.pressed = true
       lastKey = 'a'
       break
 
     case 's':
+    case 'ArrowDown':
       keys.s.pressed = true
       lastKey = 's'
       break
 
     case 'd':
+    case 'ArrowRight':
       keys.d.pressed = true
       lastKey = 'd'
+      break
+
+    case 'e':
+    case 'Enter':
+      keys.e.pressed = true
+      // lastKey = 'e'
       break
   }
 })
@@ -463,16 +465,24 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
   switch (e.key) {
     case 'w':
+    case 'ArrowUp':
       keys.w.pressed = false
       break
     case 'a':
+    case 'ArrowLeft':
       keys.a.pressed = false
       break
     case 's':
+    case 'ArrowDown':
       keys.s.pressed = false
       break
     case 'd':
+    case 'ArrowRight':
       keys.d.pressed = false
+      break
+    case 'e':
+    case 'Enter':
+      keys.e.pressed = false
       break
   }
 })
