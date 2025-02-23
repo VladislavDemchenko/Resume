@@ -9,15 +9,11 @@ for (let i = 0; i < collisions.length; i += 95) {
   collisionsMap.push(collisions.slice(i, 95 + i))
 }
 
-const battleZonesMap = []
-for (let i = 0; i < battleZonesData.length; i += 95) {
-  battleZonesMap.push(battleZonesData.slice(i, 95 + i))
+const pagesZoneMap = []
+for (let i = 0; i < pagesZoneData.length; i += 95) {
+  pagesZoneMap.push(pagesZoneData.slice(i, 95 + i))
 }
 
-const charactersMap = []
-for (let i = 0; i < charactersMapData.length; i += 95) {
-  charactersMap.push(charactersMapData.slice(i, 95 + i))
-}
 
 const boundaries = []
 const offset = {
@@ -39,12 +35,52 @@ collisionsMap.forEach((row, i) => {
   })
 })
 
-const battleZones = []
+const projectZones = []
+const educationZones = []
+const experienceZones = []
+const contactZones = []
+const skillsZones = []
 
-battleZonesMap.forEach((row, i) => {
+pagesZoneMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 2049)
-      battleZones.push(
+    if (symbol === 2049) // project
+      projectZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    if (symbol === 2048) // education
+      educationZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    if (symbol === 2047) // experience
+      experienceZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    if (symbol === 2046) // contact
+      contactZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    if (symbol === 2045) // skills
+      skillsZones.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -55,65 +91,6 @@ battleZonesMap.forEach((row, i) => {
   })
 })
 
-const characters = []
-const villagerImg = new Image()
-villagerImg.src = './img/villager/Idle.png'
-
-const oldManImg = new Image()
-oldManImg.src = './img/oldMan/Idle.png'
-
-charactersMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    // 1026 === villager
-    if (symbol === 1026) {
-      characters.push(
-        new Character({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          },
-          image: villagerImg,
-          frames: {
-            max: 4,
-            hold: 60
-          },
-          scale: 3,
-          animate: true,
-          dialogue: ['...', 'Hey mister, have you seen my Doggochu?']
-        })
-      )
-    }
-    // 1031 === oldMan
-    else if (symbol === 1031) {
-      characters.push(
-        new Character({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          },
-          image: oldManImg,
-          frames: {
-            max: 4,
-            hold: 60
-          },
-          scale: 3,
-          dialogue: ['My bones hurt.']
-        })
-      )
-    }
-
-    if (symbol !== 0) {
-      boundaries.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          }
-        })
-      )
-    }
-  })
-})
 
 const image = new Image()
 image.src = './img/Pellet Town.png'
@@ -189,21 +166,25 @@ const movables = [
   background,
   ...boundaries,
   foreground,
-  ...battleZones,
-  ...characters
+  ...projectZones,
+  ...educationZones,
+  ...experienceZones,
+  ...contactZones,
+  ...skillsZones,
 ]
 const renderables = [
   background,
   ...boundaries,
-  ...battleZones,
-  ...characters,
+  ...projectZones,
+  ...educationZones,
+  ...experienceZones,
+  ...contactZones,
+  ...skillsZones,
   player,
   foreground
 ]
 
-const battle = {
-  initiated: false
-}
+const isPages = { initiated: false }
 // var button = document.getElementById('button')
 // var startScreen = document.getElementById('startScreen')
 // button.addEventListener('click', function () {
@@ -217,26 +198,22 @@ function animate() {
   let moving = true
   player.animate = false
 
-  if (battle.initiated) return
+  if (isPages.initiated) return
 
-  // activate a battle
+  // activate a projects
   if (keys.e.pressed) {
-    for (let i = 0; i < battleZones.length; i++) {
-      const battleZone = battleZones[i]
-
+    for (let i = 0; i < projectZones.length; i++) {
+      const projectZone = projectZones[i]
       if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: battleZone
-        })
+          rectangularCollision({
+            rectangle1: player,
+            rectangle2: projectZone
+          })
       ) {
         // deactivate current animation loop
         window.cancelAnimationFrame(animationId)
+        isPages.initiated = true
 
-        // audio.Map.stop()
-        // audio.initBattle.play()
-        // audio.battle.play()
-        battle.initiated = true
         gsap.to('#overlappingDiv', {
           opacity: 1,
           yoyo: true,
@@ -246,8 +223,7 @@ function animate() {
               // duration: 0.4,
               onComplete() {
                 // activate a new animation loop
-                initPageContent()
-                // animateBattle()
+                initPageContent("projects")
                 gsap.to('#overlappingDiv', {
                   opacity: 0,
                 })
@@ -255,21 +231,128 @@ function animate() {
             })
           }
         })
-        break
+        break;
+      }
+    }
+    for (let i = 0; i < educationZones.length; i++) {
+      const educationZone = educationZones[i]
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: educationZone
+      })) {
+        // deactivate current animation loop
+        window.cancelAnimationFrame(animationId)
+        isPages.initiated = true
+
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          yoyo: true,
+          onComplete() {
+            gsap.to('#overlappingDiv', {
+              opacity: 1,
+              onComplete() {
+                initPageContent('education')
+                gsap.to('#overlappingDiv', {
+                  opacity: 0,
+                })
+              }
+            })
+          }
+        })
+        break;
+      }
+    }
+    for (let i = 0; i < experienceZones.length; i++) {
+      const experienceZone = experienceZones[i]
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: experienceZone
+      })) {
+        // deactivate current animation loop
+        window.cancelAnimationFrame(animationId)
+        isPages.initiated = true
+
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          yoyo: true,
+          onComplete() {
+            gsap.to('#overlappingDiv', {
+              opacity: 1,
+              onComplete() {
+                initPageContent('experience')
+                gsap.to('#overlappingDiv', {
+                  opacity: 0,
+                })
+              }
+            })
+          }
+        })
+        break;
+      }
+    }
+    for (let i = 0; i < contactZones.length; i++) {
+      const contactZone = contactZones[i]
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: contactZone
+      })) {
+        // deactivate current animation loop
+        window.cancelAnimationFrame(animationId)
+        isPages.initiated = true
+
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          yoyo: true,
+          onComplete() {
+            gsap.to('#overlappingDiv', {
+              opacity: 1,
+              onComplete() {
+                initPageContent('contact')
+                gsap.to('#overlappingDiv', {
+                  opacity: 0,
+                })
+              }
+            })
+          }
+        })
+        break;
+      }
+    }
+    for (let i = 0; i < skillsZones.length; i++) {
+      const skillsZone = skillsZones[i]
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: skillsZone
+      })) {
+        // deactivate current animation loop
+        window.cancelAnimationFrame(animationId)
+        isPages.initiated = true
+
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          yoyo: true,
+          onComplete() {
+            gsap.to('#overlappingDiv', {
+              opacity: 1,
+              onComplete() {
+                initPageContent('skills')
+                gsap.to('#overlappingDiv', {
+                  opacity: 0,
+                })
+              }
+            })
+          }
+        })
+        break;
       }
     }
   }
 
   //Aimation for player movement and collision detection
-  if ((keys.w.pressed && lastKey === 'w') || (keys.w.pressed && lastKey === 'ц')) {
+  if (keys.w.pressed && lastKey === 'w') {
     player.animate = true
     player.image = player.sprites.up
 
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: 0, y: 3 }
-    })
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i]
@@ -294,15 +377,10 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y += 3
       })
-  } else if ((keys.a.pressed && lastKey === 'a') || (keys.a.pressed && lastKey === 'ф')) {
+  } else if (keys.a.pressed && lastKey === 'a') {
     player.animate = true
     player.image = player.sprites.left
 
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: 3, y: 0 }
-    })
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i]
@@ -327,15 +405,10 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.x += 3
       })
-  } else if ((keys.s.pressed && lastKey === 's') || (keys.s.pressed && lastKey === 'і')) {
+  } else if (keys.s.pressed && lastKey === 's') {
     player.animate = true
     player.image = player.sprites.down
 
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: 0, y: -3 }
-    })
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i]
@@ -360,15 +433,10 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y -= 3
       })
-  } else if ((keys.d.pressed && lastKey === 'd') || (keys.d.pressed && lastKey === 'в')) {
+  } else if (keys.d.pressed && lastKey === 'd') {
     player.animate = true
     player.image = player.sprites.right
 
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: -3, y: 0 }
-    })
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i]
@@ -399,38 +467,7 @@ animate()
 
 let lastKey = ''
 window.addEventListener('keydown', (e) => {
-  if (player.isInteracting) {
-    switch (e.key) {
-      case ' ':
-        player.interactionAsset.dialogueIndex++
-
-        const { dialogueIndex, dialogue } = player.interactionAsset
-        if (dialogueIndex <= dialogue.length - 1) {
-          document.querySelector('#characterDialogueBox').innerHTML =
-            player.interactionAsset.dialogue[dialogueIndex]
-          return
-        }
-
-        // finish conversation
-        player.isInteracting = false
-        player.interactionAsset.dialogueIndex = 0
-        document.querySelector('#characterDialogueBox').style.display = 'none'
-
-        break
-    }
-    return
-  }
-
   switch (e.key) {
-    case ' ':
-      if (!player.interactionAsset) return
-
-      // beginning the conversation
-      const firstMessage = player.interactionAsset.dialogue[0]
-      document.querySelector('#characterDialogueBox').innerHTML = firstMessage
-      document.querySelector('#characterDialogueBox').style.display = 'flex'
-      player.isInteracting = true
-      break
     case 'w':
     case 'ArrowUp':
       keys.w.pressed = true
