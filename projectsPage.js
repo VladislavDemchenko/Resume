@@ -1,6 +1,5 @@
 
 animate()
-animate()
 function initPageContent(type) {
 
   const modalContainer = document.createElement('div')
@@ -24,7 +23,6 @@ function initPageContent(type) {
   const contentPage2 = document.createElement('div')
   switch(type) {
     case 'projects':
-      console.log('Loading projects page'); // Лог для projects
       contentPage1.className = 'page1'
       contentPage1.innerHTML = `
         <div class="page_title">PROJECTS</div>
@@ -81,7 +79,6 @@ function initPageContent(type) {
   `
       break;
     case 'education':
-      console.log('Loading education page'); // Лог для education
       contentPage1.className = 'education_container'
       contentPage1.innerHTML = contentPage1.innerHTML = `
        <div class="parchment">
@@ -144,22 +141,84 @@ function initPageContent(type) {
             </div>
           </div>
         </div>
-
-       <script>
-          document.querySelectorAll('.item-link').forEach(button => {
-            button.addEventListener('click', function(e) {
-              this.style.animation = 'buttonPress 0.1s forwards';
-              setTimeout(() => {
-                this.style.animation = '';
-              }, 100);
-            });
-          });
-        </script>
         `
       break;
     case 'skills':
-      console.log('Loading skills page'); // Лог для education
-      // ваш код для education
+      contentPage1.className = 'education_container'
+      contentPage1.innerHTML = contentPage1.innerHTML = `
+       <div class="parchment">
+          <div class="resume-content">
+            <div class="resume-section">
+              <h2 class="section-title">Java SKILLS</h2>
+              
+              <div class="item">
+<!--                <h3 class="item-title">STU | State Tax University</h3>-->
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+               <p class="item-info skills-item-info">Java (Core 8+),
+
+                Spring (Boot, Web, MVC, Rest, 
+                Data, Cloud, Security, Redis),
+                
+                Hibernate,
+                
+                PostgresSQl, MongoDB, MySQL,
+                
+                Microservice (Resilience4j, 
+                RabbitMQ, Openfeign),
+                
+                JWT,                
+                
+                JUnit, Mockito,
+                
+                Apache Velocity</p>
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+              </div>
+              
+<!--              <div class="item">-->
+<!--                <h3 class="item-title">JavaRush curse</h3>-->
+<!--                <div class="pixel-divider">-->
+<!--                  <div class="pixel-dot pixel-dot-left"></div>-->
+<!--                  <div class="pixel-dot pixel-dot-right"></div>-->
+<!--                </div>-->
+<!--               <p class="item-info">Java Syntax, Java (Core 8+), Java Multithreading, Java Collections</p>-->
+<!--              </div>-->
+            </div>
+            
+            <div class="resume-section">
+              <h2 class="section-title">Addition SKILLS</h2>
+              <div class="item">
+<!--                <h3 class="item-title">STU | State Tax University</h3>-->
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+               <p class="item-info skills-item-info">
+                JavaScript, HTML, CSS,
+              
+                Kotlin,
+                          
+                Redis caching,
+                
+                XML, JSON,
+                                
+                Maven, Gradle, Git,
+                
+                basic knowledge of C#, Python
+               
+                </p>
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+              </div>
+            </div>
+            `
       break;
     case 'experience':
       console.log('Loading experience page'); // Лог для education
