@@ -3,6 +3,9 @@ const c = canvas.getContext('2d')
 
 canvas.width = 1024
 canvas.height = 576
+let scaleFactor = 0.55; // Adjust this value to zoom in or out
+
+c.scale(scaleFactor, scaleFactor);
 
 const collisionsMap = []
 for (let i = 0; i < collisions.length; i += 95) {
@@ -17,8 +20,8 @@ for (let i = 0; i < pagesZoneData.length; i += 95) {
 
 const boundaries = []
 const offset = {
-  x: -900,
-  y: -1790
+  x: -600,
+  y: -1610
 }
 
 collisionsMap.forEach((row, i) => {
@@ -37,8 +40,6 @@ collisionsMap.forEach((row, i) => {
 
 const projectZones = []
 const educationZones = []
-const experienceZones = []
-const contactZones = []
 const skillsZones = []
 
 pagesZoneMap.forEach((row, i) => {
@@ -61,32 +62,14 @@ pagesZoneMap.forEach((row, i) => {
           }
         })
       )
-    if (symbol === 2047) // experience
-      experienceZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          }
-        })
-      )
-    if (symbol === 2046) // contact
-      contactZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          }
-        })
-      )
     if (symbol === 2045) // skills
       skillsZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          }
-        })
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y
+            }
+          })
       )
   })
 })
@@ -111,9 +94,9 @@ const playerRightImage = new Image()
 playerRightImage.src = './img/playerRight.png'
 
 const player = new Sprite({
-  position: {
-    x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 68 / 2
+  position: { // player position
+    x: canvas.width - 230,
+    y: canvas.height - 270 / 2
   },
   image: playerDownImage,
   frames: {
@@ -168,8 +151,6 @@ const movables = [
   foreground,
   ...projectZones,
   ...educationZones,
-  ...experienceZones,
-  ...contactZones,
   ...skillsZones,
 ]
 const renderables = [
@@ -177,8 +158,6 @@ const renderables = [
   ...boundaries,
   ...projectZones,
   ...educationZones,
-  ...experienceZones,
-  ...contactZones,
   ...skillsZones,
   player,
   foreground
@@ -252,62 +231,6 @@ function animate() {
               opacity: 1,
               onComplete() {
                 initPageContent('education')
-                gsap.to('#overlappingDiv', {
-                  opacity: 0,
-                })
-              }
-            })
-          }
-        })
-        break;
-      }
-    }
-    for (let i = 0; i < experienceZones.length; i++) {
-      const experienceZone = experienceZones[i]
-      if (rectangularCollision({
-        rectangle1: player,
-        rectangle2: experienceZone
-      })) {
-        // deactivate current animation loop
-        window.cancelAnimationFrame(animationId)
-        isPages.initiated = true
-
-        gsap.to('#overlappingDiv', {
-          opacity: 1,
-          yoyo: true,
-          onComplete() {
-            gsap.to('#overlappingDiv', {
-              opacity: 1,
-              onComplete() {
-                initPageContent('experience')
-                gsap.to('#overlappingDiv', {
-                  opacity: 0,
-                })
-              }
-            })
-          }
-        })
-        break;
-      }
-    }
-    for (let i = 0; i < contactZones.length; i++) {
-      const contactZone = contactZones[i]
-      if (rectangularCollision({
-        rectangle1: player,
-        rectangle2: contactZone
-      })) {
-        // deactivate current animation loop
-        window.cancelAnimationFrame(animationId)
-        isPages.initiated = true
-
-        gsap.to('#overlappingDiv', {
-          opacity: 1,
-          yoyo: true,
-          onComplete() {
-            gsap.to('#overlappingDiv', {
-              opacity: 1,
-              onComplete() {
-                initPageContent('contact')
                 gsap.to('#overlappingDiv', {
                   opacity: 0,
                 })

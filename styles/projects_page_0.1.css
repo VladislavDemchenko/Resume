@@ -1,0 +1,106 @@
+
+.page_title{
+    font-size: 35px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: #333;
+    text-align: center;
+}
+.page2 .page_title{
+    padding-right: 25px;
+}
+
+.page1{
+    position: absolute;
+    top: 40px;
+    left: 45px;
+    background: none;
+    font-family: "VT323", cursive;
+    color: #333;
+}
+.container {
+    width: 290px;
+    border: 1px solid #333;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 21px;
+}
+
+.main-title {
+    font-weight: bold;
+}
+
+.date-info {
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.description {
+    margin-bottom: 2px;
+    line-height: 18px;
+}
+
+.page2{
+    position: absolute;
+    top: 40px;
+    right: 5px;
+    width: 330px;
+    background: none;
+    font-family: "VT323", cursive;
+    font-size: 20px;
+    color: #333;
+}
+
+.skills{
+    font-size: 20px;
+    line-height: 18px;
+    padding-bottom: 10px;
+}
+.repositoryLink{
+    font-size: 19px;
+    line-height: 1.4;
+    margin: 0 60px 10px 60px;
+
+}
+
+.closeButton{
+    /*position: absolute;*/
+    /*top: 30px;*/
+    /*right: 23px;*/
+    background: none;
+    border: none;
+    width: 40px; /* або більше */
+    height: 40px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 30px; /* скоригуй, щоб не виходило за межі */
+    right: 23px;
+    z-index: 10;
+
+}
+
+
+/*.education_container{*/
+/*    border-radius: 10% / 50%;*/
+/*    padding: 20px 10px;*/
+/*    width: 250px;*/
+/*}*/
+/*.centerText{*/
+/*    text-align: center;*/
+/*}*/
+/*.courseName{*/
+/*    font-size: 27px;*/
+/*}*/
+/*.name-title{*/
+/*    padding-bottom: 10px;*/
+/*    font-size: 20px;*/
+/*}*/
+/*.certification_description{*/
+/*    line-height: 2;*/
+/*    font-size: 23px;*/
+/*}*/

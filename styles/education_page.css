@@ -1,0 +1,160 @@
+
+
+.education_container{
+    box-sizing: border-box;
+    font-family: "VT323", cursive;
+    background-color: transparent;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parchment {
+    width: 100%;
+    max-width: 800px;
+    padding: 30px 40px;
+}
+
+.resume-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resume-section {
+    width: 45%;
+}
+
+.section-title {
+    font-size: 24px;
+    text-align: center;
+    margin: 15px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #6b5f4a;
+    color: #3a3223;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #d1c7a3;
+}
+
+.item {
+    background-color: rgba(227, 212, 173, 0.7);
+    border: 4px solid #6b5f4a;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #8d7d5d #49422f #49422f #8d7d5d;
+    padding: 12px;
+    margin-bottom: 15px;
+    position: relative;
+    image-rendering: pixelated;
+}
+
+.item::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #6b5f4a;
+}
+
+.item::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #6b5f4a;
+}
+
+.item-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: #3a3223;
+}
+
+.item-subtitle {
+    font-size: 16px;
+    color: #5a4e36;
+    margin: 5px 0;
+}
+
+.item-date {
+    font-size: 14px;
+    color: #6b5f4a;
+    margin: 5px 0;
+}
+
+.item-info {
+    font-size: 15px;
+    color: #4c4233;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.item-link {
+    display: inline-block;
+    color: #1e3a8a;
+    text-decoration: none;
+    font-size: 15px;
+    margin-top: 5px;
+    padding: 2px 5px;
+    background-color: #ddd3b5;
+    border: 3px solid;
+    border-color: #d1c7a3 #7d6f56 #7d6f56 #d1c7a3;
+}
+
+.item-link:hover {
+    background-color: #e9dfbf;
+}
+
+.item-link:active {
+    transform: translate(2px, 2px);
+    border-color: #7d6f56 #d1c7a3 #d1c7a3 #7d6f56;
+    background-color: #ccc4a6;
+}
+
+/* Додаткова анімація, яка створює ефект натискання */
+@keyframes buttonPress {
+    0% {
+        transform: translate(0, 0);
+        border-color: #d1c7a3 #7d6f56 #7d6f56 #d1c7a3;
+    }
+    100% {
+        transform: translate(2px, 2px);
+        border-color: #7d6f56 #d1c7a3 #d1c7a3 #7d6f56;
+    }
+}
+
+
+.pixel-divider {
+    width: 100%;
+    height: 2px;
+    background-color: #8d7d5d;
+    margin: 8px 0;
+    position: relative;
+}
+
+.pixel-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #6b5f4a;
+    position: absolute;
+    top: -2px;
+}
+
+.pixel-dot-left {
+    left: 0;
+}
+
+.pixel-dot-right {
+    right: 0;
+}
+
+.vertical-divider {
+    width: 4px;
+    background-color: #6b5f4a;
+    margin: 0 10px;
+}

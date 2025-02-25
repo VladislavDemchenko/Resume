@@ -22,7 +22,6 @@ function initPageContent(type) {
 
   const contentPage1 = document.createElement('div')
   const contentPage2 = document.createElement('div')
-
   switch(type) {
     case 'projects':
       console.log('Loading projects page'); // Лог для projects
@@ -83,18 +82,91 @@ function initPageContent(type) {
       break;
     case 'education':
       console.log('Loading education page'); // Лог для education
+      contentPage1.className = 'education_container'
+      contentPage1.innerHTML = contentPage1.innerHTML = `
+       <div class="parchment">
+          <div class="resume-content">
+            <div class="resume-section">
+              <h2 class="section-title">EDUCATION</h2>
+              
+              <div class="item">
+                <h3 class="item-title">Computer Science</h3>
+                <p class="item-subtitle">STU | State Tax University</p>
+                <p class="item-date">2021 - 2025</p>
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+              </div>
+              
+              <div class="item">
+                <h3 class="item-title">Java course</h3>
+                <p class="item-subtitle">JavaRush</p>
+                <p class="item-date">2021 - 2022</p>
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+              </div>
+              
+              <div class="item">
+                <h3 class="item-title">Java Script course</h3>
+                <p class="item-subtitle">Genius space</p>
+                <p class="item-date">2024 November - December</p>
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="resume-section">
+              <h2 class="section-title">CERTIFICATIONS</h2>
+              
+              <div class="item">
+                <h3 class="item-title">Prometheus</h3>
+                <p class="item-info">Git for distributed software development</p>
+                <a href="https://drive.google.com/file/d/1zj94qmYqQV0lGPbR3pHgfRVw6Ba3muUQ/view?usp=sharing" target="_blank" class="item-link">link</a>
+                <div class="pixel-divider">
+                  <div class="pixel-dot pixel-dot-left"></div>
+                  <div class="pixel-dot pixel-dot-right"></div>
+                </div>
+                <p class="item-info">Fundamentals of team and project management</p>
+                <a href="https://drive.google.com/file/d/1pfTTxaSWgSRly9Qd7Ay6IvJKQQXl8eZP/view?usp=sharing" target="_blank" class="item-link">link</a>
+              </div>
+              
+              <div class="item">
+                <h3 class="item-title">Cisco</h3>
+                <p class="item-info">Introduction to Networks course from Cisco</p>
+                <a href="https://drive.google.com/file/d/15Bsfmo1Ahlum2PunXt0j4DBMg3X-Qr_T/view?usp=sharing" target="_blank" class="item-link">link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       <script>
+          document.querySelectorAll('.item-link').forEach(button => {
+            button.addEventListener('click', function(e) {
+              this.style.animation = 'buttonPress 0.1s forwards';
+              setTimeout(() => {
+                this.style.animation = '';
+              }, 100);
+            });
+          });
+        </script>
+        `
+      break;
+    case 'skills':
+      console.log('Loading skills page'); // Лог для education
       // ваш код для education
       break;
     case 'experience':
       console.log('Loading experience page'); // Лог для education
-      // ваш код для education
+      // ваш код дwsaaля education
       break;
     case 'contact':
       console.log('Loading contact page'); // Лог для education
-      // ваш код для education
-      break;
-    case 'skills':
-      console.log('Loading skills page'); // Лог для education
       // ваш код для education
       break;
     default:
