@@ -1,7 +1,9 @@
 
 animate()
+animate()
 function initPageContent(type) {
 
+  const left_container = document.querySelector('.left-container');
   const modalContainer = document.createElement('div')
   modalContainer.style.cssText = `
     position: absolute;
@@ -15,9 +17,6 @@ function initPageContent(type) {
     z-index: 1000;
   `
 
-  const closeButton = document.createElement('button')
-  closeButton.className = 'closeButton'
-  closeButton.innerHTML = 'X'
 
   const contentPage1 = document.createElement('div')
   const contentPage2 = document.createElement('div')
@@ -232,10 +231,14 @@ function initPageContent(type) {
       console.log('Unknown page type:', type); // Лог для невідомого типу
   }
 
+  const closeButton = document.createElement('button')
+  closeButton.className = 'closeButton'
+  closeButton.innerHTML = 'X'
+
   modalContainer.appendChild(closeButton)
   modalContainer.appendChild(contentPage1)
   modalContainer.appendChild(contentPage2)
-  document.body.appendChild(modalContainer)
+  left_container.appendChild(modalContainer)
   closeButton.onclick = () => {
     modalContainer.remove()
     isPages.initiated = false
