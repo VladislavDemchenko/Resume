@@ -18,7 +18,19 @@
   <div class="content-wrapper">
     <div class="left-container">
       <canvas id="canvas"></canvas>
-
+      <div
+              id="overlappingDiv"
+              style="
+        background-color: rgb(241,195,133);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+      "
+      ></div>
       <div id="toast" class="toast">Email copied !</div>
       <div class="modalContainer"></div>
     </div>
@@ -39,19 +51,7 @@
     <a href="https://github.com/VladislavDemchenko" target="_blank">GitHub</a>
   </div>
 </div>
-  <div
-        id="overlappingDiv"
-        style="
-        background-color: rgb(211,188,151);
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        opacity: 0;
-        pointer-events: none;
-      "
-  ></div>
+
 <!--  <div class="buttons">-->
 <!--    <a href="https://t.me/vladyslavGauss" target="_blank">Telegram</a>-->
 <!--    <a href="demchenkogauss@gmail.com" id="copyEmail">Email</a>-->
@@ -85,15 +85,13 @@
       });
     });
   </script>
-<script>
-  function updateOverlaySize() {
-    let overlay = document.getElementById("overlappingDiv");
-    overlay.style.width = window.innerWidth + "px";
-    overlay.style.height = window.innerHeight + "px";
-  }
 
-  window.addEventListener("resize", updateOverlaySize);
-  window.addEventListener("load", updateOverlaySize);
+<script>
+  document.addEventListener("keydown", function(event) {
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+    event.preventDefault();
+  }
+});
 </script>
 <!--<script src="js/linkButton.js"></script>-->
 <script src="data/audio.js"></script>
